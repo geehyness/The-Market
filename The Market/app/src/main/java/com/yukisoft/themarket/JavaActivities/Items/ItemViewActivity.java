@@ -1,13 +1,15 @@
-package com.yukisoft.themarket;
+package com.yukisoft.themarket.JavaActivities.Items;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-public class HomeActivity extends AppCompatActivity {
+import com.yukisoft.themarket.R;
+
+public class ItemViewActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_home);
+        setContentView(R.layout.activity_item_view);
     }
 }
