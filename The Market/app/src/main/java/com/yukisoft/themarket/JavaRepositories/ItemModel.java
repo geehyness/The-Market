@@ -9,6 +9,16 @@ public class ItemModel {
     private String userId;
     private String imageUrl;
 
+    public ItemCategory getCategory() {
+        return category;
+    }
+
+    public void setCategory(ItemCategory category) {
+        this.category = category;
+    }
+
+    private ItemCategory category;
+
     /**
      * GETTERS
      */
@@ -19,6 +29,7 @@ public class ItemModel {
     public Double getPrice() { return price; }
     public String getDetails() { return details; }
     public ItemCondition getCondition() { return condition; }
+
 
     /**
      * SETTERS
@@ -44,13 +55,15 @@ public class ItemModel {
      * @param condition
      * @param userId
      * @param imageUrl
+     * @param category
      */
-    public ItemModel(String name, Double price, String details, ItemCondition condition, String userId, String imageUrl) {
+    public ItemModel(String name, Double price, String details, ItemCondition condition, String userId, String imageUrl, ItemCategory category) {
         this.name = name;
         this.price = price;
         this.details = details;
         this.condition = condition;
         this.userId = userId;
         this.imageUrl = imageUrl;
+        this.category = category;
     }
 }

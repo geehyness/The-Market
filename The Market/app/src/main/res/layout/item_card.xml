@@ -12,7 +12,7 @@
         android:layout_margin="4dp">
 
         <ImageView
-            android:id="@+id/itemImage"
+            android:id="@+id/imgSellPic"
             android:layout_width="150dp"
             android:layout_height="150dp"
             android:padding="2dp" />
@@ -24,7 +24,7 @@
             android:layout_alignParentTop="true"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
-            android:layout_toEndOf="@+id/itemImage"
+            android:layout_toEndOf="@+id/imgSellPic"
             android:text="Title"
             android:textColor="@android:color/black"
             android:textSize="20sp"
@@ -37,7 +37,7 @@
             android:layout_below="@+id/itemTitle"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
-            android:layout_toEndOf="@+id/itemImage"
+            android:layout_toEndOf="@+id/imgSellPic"
             android:maxLines="1"
             android:text="Content_description"
             android:textAllCaps="false"
@@ -50,7 +50,7 @@
             android:layout_below="@+id/itemCondition"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
-            android:layout_toEndOf="@+id/itemImage"
+            android:layout_toEndOf="@+id/imgSellPic"
             android:text="Price"
             android:textAllCaps="false"
             android:textSize="15sp"
@@ -63,7 +63,7 @@
             android:layout_below="@+id/itemDescription"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
-            android:layout_toEndOf="@+id/itemImage"
+            android:layout_toEndOf="@+id/imgSellPic"
             android:text="TextView" />
 
     </RelativeLayout>

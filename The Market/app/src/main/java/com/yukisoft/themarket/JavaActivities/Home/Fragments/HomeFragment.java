@@ -11,19 +11,21 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.google.gson.Gson;
-import com.yukisoft.themarket.JavaActivities.Home.HomeActivity;
 import com.yukisoft.themarket.JavaActivities.Items.ItemViewActivity;
 import com.yukisoft.themarket.JavaRepositories.CollectionName;
 import com.yukisoft.themarket.JavaRepositories.ItemAdapter;
+import com.yukisoft.themarket.JavaRepositories.ItemCategory;
 import com.yukisoft.themarket.JavaRepositories.ItemModel;
 import com.yukisoft.themarket.JavaRepositories.UserModel;
 import com.yukisoft.themarket.MainActivity;
@@ -32,7 +34,7 @@ import com.yukisoft.themarket.R;
 import java.util.ArrayList;
 
 public class HomeFragment extends Fragment {
-    ArrayList<ItemModel> itemList = new ArrayList<>();
+    ArrayList<ItemModel> displayList = new ArrayList<>();
 
     private RecyclerView mtRecyclerView;
     public ItemAdapter itemAdapter;
@@ -41,6 +43,7 @@ public class HomeFragment extends Fragment {
     private CollectionReference messages = FirebaseFirestore.getInstance().collection(CollectionName.ITEMS);
     public static final String ITEM_MODEL = "ItemModel";
     private static UserModel currentUser;
+    private Spinner catSelect;
 
     @Nullable
     @Override
@@ -51,44 +54,79 @@ public class HomeFragment extends Fragment {
         currentUser = (new Gson()).fromJson(i.getStringExtra(MainActivity.USER_MODEL), UserModel.class);
 
         buildRecyclerView(v);
+        createSpinner();
+        getItems(ItemCategory.ALL.toString());
 
-        messages.addSnapshotListener(new EventListener<QuerySnapshot>() {
+        catSelect.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
-            public void onEvent(@javax.annotation.Nullable QuerySnapshot queryDocumentSnapshots, @javax.annotation.Nullable FirebaseFirestoreException e) {
-                if (e != null){
-                    Toast.makeText(getContext(), "Error While Loading! \nError - " + e.getMessage(), Toast.LENGTH_SHORT).show();
-                    return;
-                }
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                getItems(catSelect.getSelectedItem().toString());
+            }
 
-                if (queryDocumentSnapshots != null){
-                    for(DocumentSnapshot msg : queryDocumentSnapshots){
-                        ItemModel tempItem = msg.toObject(ItemModel.class);
-                        tempItem.setId(msg.getId());
-
-                        boolean exists = false;
-
-                        for (ItemModel m : itemList)
-                            if(m.getId().equals(tempItem.getId()))
-                                exists = true;
-
-                        if(!exists) {
-                            itemList.add(tempItem);
-                        }
-                    }
-                }
-                //Collections.sort(itemList, new MTComparator());
-                itemAdapter.notifyDataSetChanged();
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                getItems(ItemCategory.ALL.toString());
             }
         });
 
         return v;
     }
 
+    private void getItems(final String category){
+        displayList.clear();
+        messages.get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+            @Override
+            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                if (queryDocumentSnapshots != null){
+                    for(DocumentSnapshot msg : queryDocumentSnapshots){
+                        ItemModel tempItem = msg.toObject(ItemModel.class);
+                        tempItem.setId(msg.getId());
+
+                        boolean isCategory = true;
+                        boolean exists = false;
+
+                        if (!category.equals(ItemCategory.ALL.toString()) && !category.equals(tempItem.getCategory())){
+                            isCategory = false;
+                        }
+
+                        for (ItemModel m : displayList)
+                            if(m.getId().equals(tempItem.getId()))
+                                exists = true;
+
+                        if(!exists && isCategory) {
+                            displayList.add(tempItem);
+                        }
+                    }
+                }
+
+                itemAdapter.notifyDataSetChanged();
+                //Toast.makeText(getContext(), displayList.get(0).getName(), Toast.LENGTH_LONG).show();
+            }
+        });
+    }
+
+    private void createSpinner(){
+        String[] spinnerList = {
+                ItemCategory.ALL.toString(),
+                ItemCategory.BOOKS.toString(),
+                ItemCategory.GADJETS.toString(),
+                ItemCategory.CLOTHING.toString(),
+                ItemCategory.MISC.toString()
+        };
+
+        ArrayAdapter<String> adapter;
+        adapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_spinner_item, spinnerList);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        catSelect.setAdapter(adapter);
+    }
+
     private void buildRecyclerView(View v){
+        catSelect = v.findViewById(R.id.spSellCat);
+
         mtRecyclerView = v.findViewById(R.id.itemRecycler);
         mtRecyclerView.setHasFixedSize(true);
         mtLayoutManager = new LinearLayoutManager(getContext());
-        itemAdapter = new ItemAdapter(itemList);
+        itemAdapter = new ItemAdapter(displayList);
 
         mtRecyclerView.setLayoutManager(mtLayoutManager);
         mtRecyclerView.setAdapter(itemAdapter);
@@ -96,7 +134,7 @@ public class HomeFragment extends Fragment {
         itemAdapter.setOnItemClickListener(new ItemAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(int position) {
-                ItemModel itemModel = itemList.get(position);
+                ItemModel itemModel = displayList.get(position);
                 String itemJSON = (new Gson()).toJson(itemModel);
                 String userJSON = (new Gson()).toJson(currentUser);
 

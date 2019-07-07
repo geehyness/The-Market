@@ -33,7 +33,7 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemViewHolder
 
         public ItemViewHolder(View itemView, final OnItemClickListener listener) {
             super(itemView);
-            itemImage = itemView.findViewById(R.id.itemImage);
+            itemImage = itemView.findViewById(R.id.imgSellPic);
             itemTitle = itemView.findViewById(R.id.itemTitle);
             itemDescription = itemView.findViewById(R.id.itemDescription);
             itemCondition = itemView.findViewById(R.id.itemCondition);
