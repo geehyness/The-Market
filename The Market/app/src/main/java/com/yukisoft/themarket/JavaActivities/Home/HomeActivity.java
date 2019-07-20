@@ -1,5 +1,6 @@
 package com.yukisoft.themarket.JavaActivities.Home;
 
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
@@ -12,6 +13,7 @@ import com.yukisoft.themarket.JavaActivities.Home.Fragments.ChatsFragment;
 import com.yukisoft.themarket.JavaActivities.Home.Fragments.ProfileFragment;
 import com.yukisoft.themarket.JavaActivities.Home.Fragments.SearchFragment;
 import com.yukisoft.themarket.JavaActivities.Home.Fragments.SellFragment;
+import com.yukisoft.themarket.JavaActivities.UserManagement.SettingsActivity;
 import com.yukisoft.themarket.R;
 
 
@@ -44,9 +46,9 @@ public class HomeActivity extends AppCompatActivity {
                 case R.id.nav_sell:
                     selectedFrag = new SellFragment();
                     break;
-                case R.id.nav_chats:
+                /*case R.id.nav_chats:
                     selectedFrag = new ChatsFragment();
-                    break;
+                    break;*/
                 case R.id.nav_profile:
                     selectedFrag = new ProfileFragment();
                     break;
