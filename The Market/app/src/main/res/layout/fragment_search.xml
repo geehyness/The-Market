@@ -65,7 +65,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="60dp"
-        android:layout_marginBottom="4dp"
+        android:layout_marginBottom="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -81,65 +81,66 @@
                 android:id="@+id/divider2"
                 android:layout_width="395dp"
                 android:layout_height="2dp"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="8dp"
                 android:background="?android:attr/listDivider"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/spSellCat" />
+                app:layout_constraintTop_toBottomOf="@+id/btnMarketSearch" />
 
             <android.support.v7.widget.RecyclerView
-                android:id="@+id/itemRecycler"
+                android:id="@+id/searchItemRecycler"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:layout_marginTop="8dp"
                 android:padding="4dp"
                 android:scrollbars="vertical"
                 app:layout_constraintTop_toBottomOf="@+id/divider2" />
-
-            <Spinner
-                android:id="@+id/spSellCat"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="8dp"
-                app:layout_constraintEnd_toStartOf="@+id/btnMarketSearch"
-                app:layout_constraintStart_toEndOf="@+id/textView2"
-                app:layout_constraintTop_toBottomOf="@+id/txtMarketSearch" />
 
             <TextView
                 android:id="@+id/textView2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
+                android:layout_marginStart="16dp"
                 android:text="Category"
-                app:layout_constraintBottom_toBottomOf="@+id/spSellCat"
+                app:layout_constraintBottom_toBottomOf="@+id/spSearchCat"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/spSellCat" />
+                app:layout_constraintTop_toTopOf="@+id/spSearchCat" />
 
             <Button
                 android:id="@+id/btnMarketSearch"
                 style="@style/Widget.AppCompat.Button.Colored"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="16dp"
                 android:text="Search"
-                app:layout_constraintBottom_toBottomOf="@+id/spSellCat"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/spSellCat" />
+                app:layout_constraintTop_toBottomOf="@+id/txtMarketSearch" />
 
             <EditText
                 android:id="@+id/txtMarketSearch"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="16dp"
-                android:layout_marginEnd="8dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="32dp"
+                android:layout_marginEnd="16dp"
                 android:ems="10"
                 android:hint="Search Term"
                 android:inputType="textPersonName"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
+
+            <Spinner
+                android:id="@+id/spSearchCat"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                app:layout_constraintBottom_toBottomOf="@+id/btnMarketSearch"
+                app:layout_constraintEnd_toStartOf="@+id/btnMarketSearch"
+                app:layout_constraintStart_toEndOf="@+id/textView2"
+                app:layout_constraintTop_toTopOf="@+id/btnMarketSearch" />
 
         </android.support.constraint.ConstraintLayout>
 

@@ -1,5 +1,6 @@
 package com.yukisoft.themarket.JavaActivities.Home.Fragments;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -7,6 +8,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
@@ -16,7 +18,6 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.gson.Gson;
@@ -32,9 +33,11 @@ import com.yukisoft.themarket.R;
 public class SellFragment extends Fragment {
     private Spinner catSelect;
     private Spinner conSelect;
+    private EditText txtDetails;
 
     private UserModel currentUser;
 
+    @SuppressLint("ClickableViewAccessibility")
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -48,9 +51,26 @@ public class SellFragment extends Fragment {
 
         if (!currentUser.isRegistered()){
             Toast.makeText(getContext(), "You have to be registered to sell!", Toast.LENGTH_SHORT).show();
+            getActivity().getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.fragmentContainer, new ProfileFragment()).commit();
         }
 
-        catSelect = view.findViewById(R.id.spSellCat);
+        txtDetails = view.findViewById(R.id.txtSellDetails);
+        txtDetails.setOnTouchListener(new View.OnTouchListener() {
+            public boolean onTouch(View v, MotionEvent event) {
+                if (txtDetails.hasFocus()) {
+                    v.getParent().requestDisallowInterceptTouchEvent(true);
+                    switch (event.getAction() & MotionEvent.ACTION_MASK){
+                        case MotionEvent.ACTION_SCROLL:
+                            v.getParent().requestDisallowInterceptTouchEvent(false);
+                            return true;
+                    }
+                }
+                return false;
+            }
+        });
+
+        catSelect = view.findViewById(R.id.spHomeCat);
         conSelect = view.findViewById(R.id.spSellCondition);
         createSpinner();
 
@@ -68,7 +88,6 @@ public class SellFragment extends Fragment {
     private void sellItem(View v){
         EditText txtName = v.findViewById(R.id.txtSellName);
         EditText txtPrice = v.findViewById(R.id.txtSellPrice);
-        EditText txtDetails = v.findViewById(R.id.txtSellDetails);
 
         String name = txtName.getText().toString();
         String price = txtPrice.getText().toString();

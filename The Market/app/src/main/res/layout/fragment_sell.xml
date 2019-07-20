@@ -97,7 +97,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/imgSellPic" />
 
             <Spinner
-                android:id="@+id/spSellCat"
+                android:id="@+id/spHomeCat"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
@@ -126,7 +126,7 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
                 android:text="Category"
-                app:layout_constraintStart_toStartOf="@+id/spSellCat"
+                app:layout_constraintStart_toStartOf="@+id/spHomeCat"
                 app:layout_constraintTop_toBottomOf="@+id/txtSellName" />
 
             <EditText
@@ -182,7 +182,7 @@
                 android:layout_marginTop="8dp"
                 android:text="Condition"
                 app:layout_constraintStart_toStartOf="@+id/spSellCondition"
-                app:layout_constraintTop_toBottomOf="@+id/spSellCat" />
+                app:layout_constraintTop_toBottomOf="@+id/spHomeCat" />
 
             <Spinner
                 android:id="@+id/spSellCondition"

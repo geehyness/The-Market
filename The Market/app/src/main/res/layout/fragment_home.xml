@@ -86,7 +86,7 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <android.support.v7.widget.RecyclerView
-                android:id="@+id/itemRecycler"
+                android:id="@+id/homeItemRecycler"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:padding="4dp"
@@ -94,7 +94,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/divider2" />
 
             <Spinner
-                android:id="@+id/spSellCat"
+                android:id="@+id/spHomeCat"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
@@ -110,9 +110,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:text="Select Category"
-                app:layout_constraintBottom_toBottomOf="@+id/spSellCat"
+                app:layout_constraintBottom_toBottomOf="@+id/spHomeCat"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/spSellCat" />
+                app:layout_constraintTop_toTopOf="@+id/spHomeCat" />
 
         </android.support.constraint.ConstraintLayout>
 

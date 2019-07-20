@@ -9,7 +9,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".JavaActivities.Items.ItemViewActivity"></activity>
+        <activity android:name=".JavaActivities.UserManagement.SettingsActivity"></activity>
+        <activity android:name=".JavaActivities.UserManagement.LoginActivity" />
+        <activity android:name=".JavaActivities.UserManagement.RegisterActivity" />
+        <activity android:name=".JavaActivities.Items.ItemViewActivity" />
         <activity android:name=".JavaActivities.Home.HomeActivity" />
         <activity android:name=".MainActivity">
             <intent-filter>
